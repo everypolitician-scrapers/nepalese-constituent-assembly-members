@@ -2,5 +2,7 @@ require 'wikidata/fetcher'
 
 names = WikiData::Category.new( 'श्रेणी:संविधान सभा सदस्य', 'ne').member_titles
 
-EveryPolitician::Wikidata.scrape_wikidata(names: { ne: names }, output: false)
+query = 'SELECT DISTINCT ?item { ?item wdt:P39 wd:Q18056060 }'
+ids = EveryPolitician::Wikidata.sparql(query)
 
+EveryPolitician::Wikidata.scrape_wikidata(ids: ids, names: { ne: names })
